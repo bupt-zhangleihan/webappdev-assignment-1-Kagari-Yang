@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>动态方块</title>
+<style>
+    #box {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        background-color: red;
+    }
+</style>
+</head>
+<body>
+
+<div id="box"></div>
+
+<script>
+// 获取方块元素
+var box = document.getElementById('box');
+
+// 设定方块的初始位置和移动速度
+var centerPosition = window.innerWidth / 2 - 50; // 屏幕中心位置，减去方块宽度的一半
+var position = centerPosition;
+var moveRange = 100; // 设置方块移动范围（例如100像素）
+var direction = 1; // 1表示向右移动，-1表示向左移动
+var speed = 2; // 每次移动的像素
+
+function moveAndChangeColor() {
+    // 计算新位置
+    position += direction * speed;
+
+    // 达到指定移动范围的边界时改变方向
+    if (position >= centerPosition + moveRange/2 || position <= centerPosition - moveRange/2) {
+        direction *= -1;
+
+        // 改变颜色
+        box.style.backgroundColor = `rgb(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255})`;
+    }
+
+    // 设置方块的新位置
+    box.style.left = position + 'px';
+
+    // 持续移动方块
+    requestAnimationFrame(moveAndChangeColor);
+}
+
+// 开始移动方块
+moveAndChangeColor();
+</script>
+</body>
+</html>
